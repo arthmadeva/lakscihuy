@@ -14,9 +14,10 @@
             --light-bg: #fdfdfd;
             --border-color: #eee;
         }
+        html{scroll-behavior: smooth;}
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #fff; color: #333; line-height: 1.6; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #333; line-height: 1.6; }
 
         /* Navbar Stay */
         nav {
@@ -25,6 +26,10 @@
             z-index: 9999; background: rgba(0, 0, 0, 0.4); 
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        nav a {
+            text-decoration: none; /* Menghilangkan garis bawah */
+            color: inherit;        /* Mengikuti warna teks asli (putih) */
         }
         .logo { font-family: 'Playfair Display', serif; font-size: 22px; color: white; font-weight: bold; }
         nav ul { display: flex; list-style: none; }
@@ -46,6 +51,7 @@
         .btn-white:hover { background: white; color: black; }
 
         /* Section Title Global */
+        section { scroll-margin-top: 90px; }
         .section-header { text-align: center; padding: 100px 5% 40px; }
         .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 10px; }
         .section-header .underline { width: 60px; height: 3px; background-color: #000; margin: 0 auto 20px; }
@@ -114,8 +120,51 @@
         /* Portfolio */
         .portfolio { padding: 100px 5%; background: white; }
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .gallery-item img { width: 100%; height: 400px; object-fit: cover; border-radius: 4px; transition: 0.5s; }
-        .gallery-item img:hover { transform: scale(1.02); }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 25px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item .category {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transform: translateY(10px);
+            transition: 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+           transform: scale(1.05);
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .category {
+            transform: translateY(0);
+        }
 
         /* --- CLIENT REVIEWS (NEW) --- */
         .reviews-section { background-color: #f9f9f9; padding: 40px 10% 100px; }
@@ -202,8 +251,8 @@
 
         /* --- FOOTER UPDATE (SESUAI GAMBAR) --- */
         footer {
-            background-color: #f9f9f9;
-            color: var(--white);
+            background-color: rgb(39, 39, 39);
+            color: black;
             padding: 80px 10% 40px;
             font-size: 0.9rem;
         }
@@ -220,9 +269,10 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             margin-bottom: 15px;
+            color: whitesmoke;
         }
         .footer-brand p {
-            color: var(--gray-text);
+            color: whitesmoke;
             margin-bottom: 15px;
             font-size: 0.85rem;
         }
@@ -260,7 +310,7 @@
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
-            color: var(--gray-text);
+            color: whitesmoke;
             line-height: 1.4;
         }
         .footer-contact-info i {
@@ -285,11 +335,36 @@
 
         /* Copyright */
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(209, 209, 209, 0.3);
             padding-top: 30px;
             text-align: center;
-            color: var(--gray-text);
+            color: whitesmoke;
             font-size: 0.8rem;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            margin: 5px 0;
+            transition: 0.3s;
         }
 
         @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -297,28 +372,112 @@
             .features-grid, .services-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
             nav ul { display: none; }
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .review-card {
+                padding: 30px 25px;
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-form-card {
+                order: 2;
+            }
+
+            .contact-info {
+                order: 1;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.4);
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 30px 0;
+                display: none;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li a {
+                font-size: 14px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: left;
+            }
+
+            .footer-brand,
+            .footer-contact-info {
+                align-items: left;
+            }
+
+            .footer-contact-info div {
+                justify-content: left;
+                text-align: left;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
         }
+        @media (max-width: 480px) {
+            .reviews-section,
+            .contact-section {
+                padding: 40px 5% 80px;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">Laks_studio</div>
-        <ul>
-            <li><a href="#">Home</a></li>
+        <a href="#"><div class="logo">Laks_studio</div></a>
+        
+
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul id="nav-menu">
+            <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contacts</a></li>
         </ul>
+
     </nav>
 
-    <header class="hero">
+    <header class="hero" id="home">
         <h1>Capturing Your Precious Moments</h1>
         <p>Professional photography services based in Yogyakarta, capturing the essence of your story.</p>
-        <a href="#portfolio" class="btn-white">Explore Gallery</a>
+        <div class="button-group">
+            <a href="#contact" class="btn-white">Book a Session &rarr;</a>
+            <a href="#portfolio" class="btn-white">View Portofolio</a>
+        </div>
     </header>
 
-    <section id="about" class="section-header">
+    <section id="about" class="section-header reveal">
         <h2>About Laks_studio</h2>
         <div class="underline"></div>
         <div class="about-description">
@@ -332,7 +491,7 @@
         </div>
     </section>
 
-    <section id="services" class="services-section">
+    <section id="services" class="services-section reveal">
         <div class="section-header">
             <h2>Our Services</h2>
             <div class="underline"></div>
@@ -414,19 +573,34 @@
         </div>
     </section>
 
-    <section id="portfolio" class="portfolio">
+    <section id="portfolio" class="portfolio  reveal">
         <div class="section-header">
             <h2>Our Portfolio</h2>
             <div class="underline"></div>
         </div>
         <div class="gallery">
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600"></div>
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600"></div>
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600"></div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600">
+                <div class="overlay">
+                    <span class="category">Prewedding</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600">
+                <div class="overlay">
+                    <span class="category">Event Photoshoot</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600">
+                <div class="overlay">
+                    <span class="category">Potrat</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="reviews" class="reviews-section">
+    <section id="reviews" class="reviews-section  reveal">
         <div class="section-header">
             <h2>Client Reviews</h2>
             <div class="underline"></div>
@@ -480,7 +654,7 @@
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
+    <section id="contact" class="contact-section reveal">
         <div class="section-header">
             <h2>Get In Touch</h2>
             <div class="underline"></div>
@@ -582,7 +756,7 @@
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
                     </div>
                     <span>4.8 (101 reviews)</span>
                 </div>
@@ -615,6 +789,38 @@
             <p>&copy; 2025 Laks_studio. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        const reveals = document.querySelectorAll(".reveal");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); // biar cuma sekali
+                    }
+                });
+            },
+            {
+                threshold: 0.15,
+            }
+        );
+
+        reveals.forEach((el) => observer.observe(el));
+        
+        const toggle = document.getElementById("menu-toggle");
+        const menu = document.getElementById("nav-menu");
+
+        toggle.addEventListener("click", () => {
+            menu.classList.toggle("active");
+        });
+
+        document.querySelectorAll("#nav-menu a").forEach(link => {
+            link.addEventListener("click", () => {
+            menu.classList.remove("active");
+            });
+        });
+    </script>
 
 </body>
 </html>
