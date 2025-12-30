@@ -40,11 +40,34 @@
         /* Hero */
         .hero {
             height: 90vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071') no-repeat center center/cover;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; color: white; padding: 0 20px;
+            position: relative;
+            overflow: hidden;
         }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            z-index: -1;
+        }
+
+        .hero-bg.active {
+            opacity: 1;
+        }
+
+        .hero-content{
+            height: 90vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; }
         .hero p { margin-bottom: 40px; font-size: 1.1rem; max-width: 700px; }
         .btn-white { padding: 12px 35px; border: 1px solid white; color: white; text-decoration: none; transition: 0.3s; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
@@ -373,7 +396,7 @@
             .hero h1 { font-size: 2.5rem; }
             nav ul { display: none; }
             .reviews-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 2fr;
             }
 
             .review-card {
@@ -442,6 +465,11 @@
                 padding: 40px 5% 80px;
             }
         }
+        
+        @keyframes zoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
 
     </style>
 </head>
@@ -469,11 +497,17 @@
     </nav>
 
     <header class="hero" id="home">
-        <h1>Capturing Your Precious Moments</h1>
-        <p>Professional photography services based in Yogyakarta, capturing the essence of your story.</p>
-        <div class="button-group">
-            <a href="#contact" class="btn-white">Book a Session &rarr;</a>
-            <a href="#portfolio" class="btn-white">View Portofolio</a>
+        <div class="hero-bg bg-1"></div>
+        <div class="hero-bg bg-2"></div>
+
+        <div class="hero-content">
+            <!-- konten hero kamu -->
+            <h1>Capturing Your Precious Moments</h1>
+            <p>Professional photography services based in Yogyakarta, capturing the essence of your story.</p>
+            <div class="button-group">
+                <a href="#contact" class="btn-white">Book a Session &rarr;</a>
+                <a href="#portfolio" class="btn-white">View Portofolio</a>
+            </div>
         </div>
     </header>
 
@@ -500,12 +534,12 @@
 
         <div class="services-grid">
             <div class="service-card">
-                <i class="fa-solid fa-user"></i>
-                <h3>Portrait Photography</h3>
-                <p>Professional portrait sessions for individuals, capturing your personality and style.</p>
+                <i class="fa-solid fa-users"></i>
+                <h3>Group Photography</h3>
+                <p>Professional group photo sessions designed to capture connection, energy, and personality within your group.</p>
                 <ul>
                     <li>Professional lighting</li>
-                    <li>Multiple poses</li>
+                    <li>Guided group posing</li>
                     <li>Edited high-res images</li>
                 </ul>
                 <a href="#" class="btn-learn">Learn More</a>
@@ -580,21 +614,33 @@
         </div>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600">
+                <img src="https://instagram.fcgk6-3.fna.fbcdn.net/v/t51.82787-15/515282163_18514422766019491_5922335003493370599_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzY2OTE4MzQwNDU3MjAzNDgxMA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxNS5zZHIuQzMifQ%3D%3D&_nc_ohc=zYmSCCdkqsoQ7kNvwFi6nzo&_nc_oc=Adn4g1aCXAfgD-azHiz-Ci6ZKuLg6xtSznOw02bpGDXfKr1BelzhUTQz_gln_toxyfkwUNDAAyhTELVThCCArbM0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fcgk6-3.fna&_nc_gid=oLvl6LEuDe8I_xwJN_4kvw&oh=00_AflLfuI0Md_A_UpUsJDpeeJZl4PvNQqe1n3rtfs7O5KXkw&oe=6959850B">
                 <div class="overlay">
-                    <span class="category">Prewedding</span>
+                    <span class="category">Pre-wedding</span>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600">
+                <img src="https://instagram.fcgk6-2.fna.fbcdn.net/v/t51.75761-15/470171211_18236246908303177_8994664229784972507_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzUyNDM5NDkzMDQzNTY3NjI5Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5OS5zZHIuQzMifQ%3D%3D&_nc_ohc=FO3IaRdj78cQ7kNvwFBvz80&_nc_oc=Adm9LUCW0l9UKfzSmneKzQb0OiDs3qrQVW1I2fuRRsr8Omp2hg3Mk3i6p4litB-f-BzVF8inuMPKd6OK-cTNhjo6&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fcgk6-2.fna&_nc_gid=k3nDzVIOOprib15M7G-YTg&oh=00_AfmcZlncXN-6tEAmvCdKttmUSuv9isTTDyF3JfyMIP6k7g&oe=695982A0">
                 <div class="overlay">
-                    <span class="category">Event Photoshoot</span>
+                    <span class="category">Graduation</span>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600">
+                <img src="https://instagram.fcgk6-2.fna.fbcdn.net/v/t39.30808-6/472742995_18238908355303177_168104157242935144_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzE3OTE2MDI0NTA1ODM3MTMxMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4OTYxLnNkci5DMyJ9&_nc_ohc=2rdX1cYqAKEQ7kNvwGS-hxd&_nc_oc=AdkZY5K0oZQiJPXG8zDwu79uj1w7b4LAshEGovQ0lghijyFgy8IJd4Bk-EugXmQF-nfCmqjyl_45JJxuMz_zA9QT&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fcgk6-2.fna&_nc_gid=Jugwh0QPskpbgl1rpOizCA&oh=00_AfnFHm4I0vcEW_ljGu0se8TuzDvwpjQ1sZ3iP9tVLjfFNA&oe=6959AD11">
                 <div class="overlay">
-                    <span class="category">Potrat</span>
+                    <span class="category">Family</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://instagram.fcgk6-3.fna.fbcdn.net/v/t39.30808-6/472748490_18238920817303177_5730857325956628119_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=MzI5MjE0OTc0MjE4MzU5NjkwNw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4OTYwLnNkci5DMyJ9&_nc_ohc=rw8FJ4k5i7MQ7kNvwHWHyBG&_nc_oc=AdkngvA7ZvNYsq2xVRbqUY7yKOKBLerpbB3J8EkzfP2Z9WvfEOzOLd51nJl9d9SdpJ2Yabn82hx57U-T8ftfNG-Y&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fcgk6-3.fna&_nc_gid=Aqdq2Em8jsRE_ompAfQVoA&oh=00_Afkp-P0YNrPnP6DL0dZoN4RArNE8RnmPqoXJROI2Zmn5TA&oe=695990B1">
+                <div class="overlay">
+                    <span class="category">Group</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://instagram.fcgk6-2.fna.fbcdn.net/v/t39.30808-6/472789185_18239026114303177_1846759932267592609_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ig_cache_key=MzM1OTQyNzY5ODkzNjg0OTU4Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=-jjtbcVkRPEQ7kNvwGPaimp&_nc_oc=AdlH8x-LhP1JIVoSoNyUgZs7IHK5f1o8NKvitVT1NA9uTw-ZEl2hXPiJY0EOAowrGq1idf_xPKG1ci0ugy26s9Qm&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fcgk6-2.fna&_nc_gid=Aqdq2Em8jsRE_ompAfQVoA&oh=00_Afls7XWszi7VkjKsjra-4h1XcqlieeGXhpGKC-fMrZmVQQ&oe=69599550">
+                <div class="overlay">
+                    <span class="category">Graduation</span>
                 </div>
             </div>
         </div>
@@ -622,33 +668,33 @@
             <div class="review-card">
                 <div class="quote-icon">“</div>
                 <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Laks_studio captured our pre-wedding moments beautifully! The team was professional, creative, and made us feel comfortable throughout the session. Highly recommended!"</p>
+                <p>"Baguss.. Muraah n hasil foto cakep2.. Cm background masih minim yaa.. Smg bisa ditingkatkan lagi.. Terimakasih mamasnya potograper sabar bgt ngadepin kitaa."</p>
                 <div class="client-info">
-                    <h4>Siti Nurhaliza</h4>
-                    <div class="role">Bride</div>
-                    <div class="date">December 15, 2024</div>
+                    <h4>Erlin Dwi Kusumawati</h4>
+                    <div class="role">Family Photography</div>
+                    <div class="date">December 2020</div>
                 </div>
             </div>
 
             <div class="review-card">
                 <div class="quote-icon">“</div>
                 <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Best graduation photos ever! The quality is exceptional and the team was very accommodating. Thank you for capturing this important milestone in my life."</p>
+                <p>" Alhamdulillah pelayanan baik dan ramah. Fotografer memberikan arahan dan membantu ide pose biar ga mati gaya hahaha. Hasil foto tanpa edit udah cakeeep dikirim di gdrive dengan estimasi waktu 3 hari jadi harus segera di download."</p>
                 <div class="client-info">
-                    <h4>Budi Santoso</h4>
-                    <div class="role">Graduate</div>
-                    <div class="date">November 28, 2024</div>
+                    <h4>Trihana Utami</h4>
+                    <div class="role">Graduation & Family Photography</div>
+                    <div class="date">May 2025</div>
                 </div>
             </div>
 
             <div class="review-card">
                 <div class="quote-icon">“</div>
                 <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Had a wonderful experience with our family photo session. The photographer was patient with our kids and the results exceeded our expectations!"</p>
+                <p>"Komunikatif timnya, ditawarkan request yg gimana leluasa sayangnya aku ga buat moodboard jadi ada spot yg paling aku pengin malah kelewat. Aku ga salah pilih laks studio, yg buat aku mantep fix foto wisuda disini Krn inovatif bgt, beda dr yg lain dan keren tone nya."</p>
                 <div class="client-info">
-                    <h4>Dewi Lestari</h4>
-                    <div class="role">Family Client</div>
-                    <div class="date">October 20, 2024</div>
+                    <h4>Wida Nur Azizah</h4>
+                    <div class="role">Graduation Photography</div>
+                    <div class="date">November 2025</div>
                 </div>
             </div>
         </div>
@@ -669,8 +715,8 @@
                     <i class="fa-solid fa-location-dot"></i>
                     <div class="info-text">
                         <h4>Address</h4>
-                        <p>Unnamed Road, Kowen II, Timbulharjo, Sewon, Bantul,<br>Special Region of Yogyakarta 55185, Indonesia</p>
-                        <a href="#" style="color:black; font-weight:600; font-size: 0.8rem;">Get Directions ➔</a>
+                        <p>Sultan Agung St, Ngaglik, Timbulharjo, Sewon, Bantul, Special Region of Yogyakarta 55185, Indonesia</p>
+                        <a href="https://maps.app.goo.gl/bVWHdB9iw8HZuGVd9" target="_blank" style="color:black; font-weight:600; font-size: 0.8rem;">Get Directions ➔</a>
                     </div>
                 </div>
 
@@ -701,13 +747,13 @@
                 <div class="contact-btns">
                     <a href="https://wa.me/6285225065266" class="btn-contact btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
                     <a href="tel:+6285225065266" class="btn-contact btn-call"><i class="fa-solid fa-phone"></i> CALL NOW</a>
-                    <a href="#" class="btn-contact btn-dir"><i class="fa-solid fa-location-arrow"></i> GET DIRECTIONS</a>
+                    <a href="https://maps.app.goo.gl/bVWHdB9iw8HZuGVd9" class="btn-contact btn-dir"><i class="fa-solid fa-location-arrow"></i> GET DIRECTIONS</a>
                 </div>
             </div>
 
             <div class="contact-form-card">
                 <h3>Send Us a Message</h3>
-                <form>
+                <form action="">
                     <div class="form-group">
                         <label>Your Name *</label>
                         <input type="text" placeholder="Enter your name" required>
@@ -740,8 +786,7 @@
         </div>
 
         <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.414728512345!2d110.37!3d-7.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTEnMDAuMCJTIDExMMKwMjInMTIuMCJF!5e0!3m2!1sid!2sid!4v1630000000000!5m2!1sid!2sid" 
-                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.205107034916!2d110.3637051757595!3d-7.873594878295169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a573c2c674431%3A0x9b5772a9428c6bf!2sLaks_studio!5e0!3m2!1sid!2sid!4v1767012248833!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
@@ -768,7 +813,7 @@
             <div class="footer-contact-info">
                 <div>
                     <i class="fa-solid fa-location-dot"></i>
-                    <span>Unnamed Road, Kowen II, Timbulharjo, Sewon, Bantul, Special Region of Yogyakarta 55185, Indonesia</span>
+                    <span>Sultan Agung St, Ngaglik, Timbulharjo, Sewon, Bantul, Special Region of Yogyakarta 55185, Indonesia</span>
                 </div>
                 <div>
                     <i class="fa-solid fa-phone"></i>
@@ -779,8 +824,9 @@
                     <span>info@laks-studio.com</span>
                 </div>
                 <div class="footer-social">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@laks.studio" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/laks_studio/"  target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/p/Laks_studio94-61550253698845/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                 </div>
             </div>
         </div>
@@ -820,6 +866,34 @@
             menu.classList.remove("active");
             });
         });
+
+        
+        const bg1 = document.querySelector(".bg-1");
+        const bg2 = document.querySelector(".bg-2");
+
+        const images = [
+            "https://cdn.pixabay.com/photo/2021/11/10/18/00/map-6784496_960_720.jpg",
+            "https://cdn.pixabay.com/photo/2022/01/18/15/40/vietnam-6947342_1280.jpg",
+            "https://cdn.pixabay.com/photo/2017/03/12/21/22/candles-2138132_960_720.jpg"
+        ];
+
+        let index = 0;
+        let activeBg = bg1;
+
+        // init
+        bg1.style.backgroundImage = `url(${images[0]})`;
+        bg1.classList.add("active");
+
+        setInterval(() => {
+            const nextBg = activeBg === bg1 ? bg2 : bg1;
+            index = (index + 1) % images.length;
+
+            nextBg.style.backgroundImage = `url(${images[index]})`;
+            nextBg.classList.add("active");
+            activeBg.classList.remove("active");
+
+            activeBg = nextBg;
+        }, 5000);
     </script>
 
 </body>
